@@ -33,8 +33,14 @@ module Closeio
       #  Email Activities
       #
 
-      def list_emails(options = {})
-        get(email_path, options)
+      def list_emails(paginate = false, options = {})
+        params = assemble_list_query nil, options
+
+        if paginate
+          paginate(email_path, params)
+        else
+          get(email_path, params)
+        end
       end
 
       def find_email(id)
